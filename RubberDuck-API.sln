@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubberDuck-API", "RubberDuck-API\RubberDuck-API.csproj", "{00730BF1-E563-4EF7-AD46-EDE3E7954391}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "duck-express-api", "duck-express-api\duck-express-api.csproj", "{9431165E-8182-44D6-BC61-4F6A812E8C89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{00730BF1-E563-4EF7-AD46-EDE3E7954391}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00730BF1-E563-4EF7-AD46-EDE3E7954391}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00730BF1-E563-4EF7-AD46-EDE3E7954391}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9431165E-8182-44D6-BC61-4F6A812E8C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9431165E-8182-44D6-BC61-4F6A812E8C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9431165E-8182-44D6-BC61-4F6A812E8C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9431165E-8182-44D6-BC61-4F6A812E8C89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
