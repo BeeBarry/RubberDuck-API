@@ -17,13 +17,18 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        // Detta gör att Swagger UI visas på root URL
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "RubberDuck API V1");
+        c.RoutePrefix = string.Empty;
+    });
 }
 
 app.UseHttpsRedirection();
 
 //READ
-app.MapGet("/ducks", async (DuckDbContext db, int id) =>
+app.MapGet("/ducks", async (DuckDbContext db) =>
 {
     return await db.Ducks.ToListAsync();
 });
