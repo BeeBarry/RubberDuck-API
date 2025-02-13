@@ -23,8 +23,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// request pipeline?..
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DuckDbContext>();
+    db.Database.EnsureCreated();
+}
+
+// request pipeline?..
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
