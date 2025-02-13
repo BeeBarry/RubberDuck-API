@@ -23,9 +23,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// request pipeline?..
+
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
@@ -33,10 +32,9 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "RubberDuck API V1");
         c.RoutePrefix = string.Empty;
     });
-}
 
+app.UseRouting();
 app.UseHttpsRedirection();
-
 app.UseCors("AllowExpressApp");
 
 //READ
