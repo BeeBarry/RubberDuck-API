@@ -1,7 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <title>Duck API</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #FFB800; 
+        }
+
+        #duckList {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8); 
+            border: 3px solid #000; 
+            margin: 20px 0;
+        }
+
+        #duckList div {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8); 
+            border: 3px solid #000; 
+        }
+
+        input {
+            padding: 12px;
+            border: 3px solid #000; 
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2); 
+        }
+
+        input:focus {
+            border-color: #000;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3); 
+        }
+
+        button {
+            padding: 12px;
+            background-color: #FF3B3B; 
+            color: white;
+            border: 3px solid #000; 
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        button:hover {
+            background-color: #FF2525;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        h1 {
+            color: #000;
+            margin-bottom: 30px;
+            font-weight: 900; 
+            text-transform: uppercase;
+        }
+
+        #duckList p {
+            font-family:  'Segoe UI', system-ui, sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        
+
+        hr {
+            border: none;
+            border-top: 3px solid #000;  
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
 <h1>Duck API</h1>
@@ -14,5 +108,67 @@
     <input type="text" name="motto" placeholder="Motto" required>
     <button type="submit">Add Duck</button>
 </form>
+<script>
+  
+    async function fetchAndDisplayDucks() {
+        try {
+            const response = await fetch('/api/ducks');
+            const ducks = await response.json();
+
+            const duckList = document.getElementById('duckList');
+            duckList.innerHTML = ''; // Rensar tidigare innehåll
+
+            ducks.forEach(duck => {
+                duckList.innerHTML += `
+                        <div>
+                            <h3>${duck.name}</h3>
+                            <p><strong>Specialty</strong>: ${duck.specialty}</p>
+                            <p><strong>Personality</strong>: ${duck.personality}</p>
+                            <p><strong>Motto</strong>: ${duck.motto}</p>
+                            <hr>
+                        </div>
+                    `;
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Hanterar formuläret
+    document.getElementById('addDuckForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const duckData = {
+            name: formData.get('name'),
+            specialty: formData.get('specialty'),
+            personality: formData.get('personality'),
+            motto: formData.get('motto')
+        };
+
+        try {
+            const response = await fetch('/api/ducks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(duckData)
+            });
+
+            if (response.ok) {
+                // Rensa formuläret och uppdatera listan
+                e.target.reset();
+                fetchAndDisplayDucks();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+
+    
+    fetchAndDisplayDucks();
+</script>
+
+
 </body>
 </html>
